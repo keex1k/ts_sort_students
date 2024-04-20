@@ -19,7 +19,9 @@ export enum SortType {
 // create SortOrder type
 export type SortOrder = 'asc' | 'desc';
 
-export function sortStudents(students: Student[], sortBy: SortType, order: SortOrder): Object[] {
+export function sortStudents(students: Student[],
+  sortBy: SortType,
+  order: SortOrder): Object[] {
   // write your function
   const result = [...students];
 
