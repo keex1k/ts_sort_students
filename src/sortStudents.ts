@@ -8,7 +8,6 @@ export interface Student {
 }
 
 export enum SortType {
-  // describe SortType enum
   Name = 'name',
   Surname = 'surname',
   Age = 'age',
@@ -16,47 +15,19 @@ export enum SortType {
   AverageGrade = 'grades',
 }
 
-// create SortOrder type
 export type SortOrder = 'asc' | 'desc';
 
 export function sortStudents(students: Student[],
   sortBy: SortType,
   order: SortOrder): Object[] {
-  // write your function
   const result = [...students];
 
   if (order === 'asc') {
     switch (sortBy) {
       case SortType.Name:
-        return result.sort((a, b) => {
-          const nazwaA: string = a.name.toUpperCase();
-          const nazwaB: string = b.name.toUpperCase();
-
-          if (nazwaA < nazwaB) {
-            return -1;
-          }
-
-          if (nazwaA > nazwaB) {
-            return 1;
-          }
-
-          return 0; // Jeśli są równe
-        });
+        return result.sort((a, b) => a.name.localeCompare(b.name));
       case SortType.Surname:
-        return result.sort((a, b) => {
-          const nazwaA: string = a.surname.toUpperCase();
-          const nazwaB: string = b.surname.toUpperCase();
-
-          if (nazwaA < nazwaB) {
-            return -1;
-          }
-
-          if (nazwaA > nazwaB) {
-            return 1;
-          }
-
-          return 0; // Jeśli są równe
-        });
+        return result.sort((a, b) => a.surname.localeCompare(b.surname));
       case SortType.AverageGrade:
         return result.sort((a, b) => {
           const sumaA: number = a.grades.reduce((x, y) => {
@@ -69,15 +40,7 @@ export function sortStudents(students: Student[],
           const avgA: number = sumaA / a.grades.length;
           const avgB: number = sumaB / b.grades.length;
 
-          if (avgA > avgB) {
-            return 1;
-          }
-
-          if (avgA < avgB) {
-            return -1;
-          }
-
-          return 0; // Jeśli są równe
+          return avgA - avgB;
         });
       default:
         return [];
@@ -85,20 +48,7 @@ export function sortStudents(students: Student[],
   } else {
     switch (sortBy) {
       case SortType.Age:
-        return result.sort((a, b) => {
-          const nazwaA: number = a.age;
-          const nazwaB: number = b.age;
-
-          if (nazwaA < nazwaB) {
-            return 1;
-          }
-
-          if (nazwaA > nazwaB) {
-            return -1;
-          }
-
-          return 0; // Jeśli są równe
-        });
+        return result.sort((a, b) => b.age - a.age);
       case SortType.Married:
         return result.sort((a, b) => {
           if (a.married === b.married) {
@@ -123,15 +73,7 @@ export function sortStudents(students: Student[],
           const avgA: number = sumaA / a.grades.length;
           const avgB: number = sumaB / b.grades.length;
 
-          if (avgA > avgB) {
-            return -1;
-          }
-
-          if (avgA < avgB) {
-            return 1;
-          }
-
-          return 0; // Jeśli są równe
+          return avgB - avgA;
         });
       default:
         return [];
